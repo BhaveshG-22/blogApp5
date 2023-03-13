@@ -235,7 +235,7 @@ app.set('view engine', 'ejs');
 app.get('/', async (req, res) => {
     try {
         const blogs = await db
-            .collection(dbCollection.blogs)
+            .collection('blogs')
             .find()
             .sort({ _id: -1 })
             .toArray();
@@ -249,7 +249,7 @@ app.get('/', async (req, res) => {
 app.post('/', async (req, res) => {
     try {
         await db
-            .collection(dbCollection.blogs)
+            .collection('blogs')
             .deleteOne({ _id: ObjectId(req.query.id) });
         res.redirect('/');
     } catch (err) {
@@ -264,7 +264,7 @@ app.get('/new', (req, res) => {
 app.get('/features', async (req, res) => {
     try {
         const updates = await db
-            .collection(dbCollection.updates)
+            .collection('updates')
             .find()
             .sort({ _id: -1 })
             .toArray();
@@ -277,7 +277,7 @@ app.get('/features', async (req, res) => {
 app.get('/edit', async (req, res) => {
     try {
         const result = await db
-            .collection(dbCollection.blogs)
+            .collection('blogs')
             .findOne({ _id: ObjectId(req.query.id) });
         res.render('edit', { articles: result });
     } catch (err) {
@@ -290,7 +290,7 @@ app.post('/edit', async (req, res) => {
         const updatedTitle = req.body.title;
         const updatedDescription = req.body.description;
         const updatedMarkdown = req.body.markdown;
-        await db.collection(dbCollection.blogs).findOneAndUpdate(
+        await db.collection('blogs').findOneAndUpdate(
             { _id: ObjectId(req.body.id) },
             {
                 $set: {
@@ -357,4 +357,4 @@ app.get('/article', (req, res) => {
 
 })
 
- module.exports = app
+module.exports = app
