@@ -356,3 +356,5 @@ app.get('/article', (req, res) => {
 
 
 })
+
+ module.exports = app
