@@ -242,7 +242,9 @@ app.get('/', async (req, res) => {
 
         res.render(path.join(__dirname + '/views/index.ejs'), { articles: blogs });
     } catch (err) {
-        res.status(500).json({ error: 'could not get data from db' });
+                    res.status(500).json(err)
+
+//         res.status(500).json({ error: 'could not get data from db' });
     }
 });
 
